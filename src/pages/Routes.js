@@ -10,8 +10,8 @@ import PrivateRoute from '../components/PrivateRoute';
 
 export default function Index() {
 
-  const {isAuthenticated} = useContext(AuthContext)
-
+  const {isAuthenticated, user} = useContext(AuthContext)
+  //  console.log(user)
 
   return (
     <BrowserRouter>

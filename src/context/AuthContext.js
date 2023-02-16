@@ -10,7 +10,7 @@ const reducer = ((state, action)=>{
 
 switch(action.type){
     case  "LOGIN":
-       return     {isAuthenticated: true}
+       return     {isAuthenticated: true, user: action.payload.user}
     case "LOGOUT":
      return  {isAuthenticated: false}
     default :
@@ -32,8 +32,8 @@ export default function AuthContextProvider(props) {
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/firebase.User
           const uid = user.uid;
-          console.log(user)
-          console.log("User is signed in")
+          // console.log(user)
+          // console.log("User is signed in")
           dispatch({type:"LOGIN", payload: {user}})
           // ...
         } else {
