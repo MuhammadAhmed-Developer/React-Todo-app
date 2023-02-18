@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {auth} from '../../../config/firebase'
+import { AuthContext } from '../../../context/AuthContext';
 // import { useNavigate } from 'react-router-dom';
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
 }
 export default function Login() {
 
+ const {dispatch} = useContext(AuthContext)
  const navigate = useNavigate()
 
   const [state, setState] = useState(initialState);
@@ -31,7 +33,7 @@ export default function Login() {
     // Signed in 
     const user = userCredential.user;
     console.log(user)
-
+dispatch({type: "LOGIN", payload: {user}})
     navigate("/dashboard")
     // ...
   })

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../../context/AuthContext';
-import { collection, getDocs, deleteDoc, doc, setDoc, serverTimestamp } from "firebase/firestore/lite";
+import { collection, getDocs, deleteDoc, doc, setDoc, serverTimestamp, where, query } from "firebase/firestore/lite";
 import { firestore } from '../../../config/firebase';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { async } from '@firebase/util';
@@ -31,8 +31,9 @@ export default function Todos() {
   const fetchDocuments = async () => {
 
     let array = []
-
-    const querySnapshot = await getDocs(collection(firestore, "todos"));
+    // jis user ky todos hy usi ko nazar ay nichy vali 1 line is lia hy 
+   const q = query(collection(firestore, "todos"), where("createdBy.uid", "==", user.uid))
+    const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       let data = doc.data()
       // doc.data() is never undefined for query doc snapshots
@@ -45,7 +46,7 @@ export default function Todos() {
 
   useEffect(() => {
     fetchDocuments()
-  }, [])
+  }, [user])
 
 
  const handleUpdate =async () =>{

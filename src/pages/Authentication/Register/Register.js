@@ -49,7 +49,7 @@ export default function Register() {
   });
   
   console.log("User Document Created at firestore ")
-  dispatch({type: "LOGIN"})
+  dispatch({type: "LOGIN", payload: {user}})
  }
  catch(err){
   console.log(err)
